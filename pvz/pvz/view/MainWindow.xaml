@@ -1,0 +1,42 @@
+﻿<Window x:Class="mvvmsample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:mvvmsample.model"
+        xmlns:view="clr-namespace:mvvmsample.view"
+        mc:Ignorable="d"
+        Title="Barsuk PVZ" Height="720" Width="900"
+        MinWidth="900" MinHeight="415"
+        Background="#161c1b"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <model:ImagePathConverter x:Key="ImagePathConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Background="#161c1b">
+        <ListView HorizontalAlignment="Center" ItemsSource="{Binding Orders}" Background="#161c1b" BorderThickness="0" Margin="0,66,0,-66" ItemContainerStyle="{StaticResource NoSelectionListBoxItemStyle}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <view:OrderItemControl/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListView>
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10">
+            <TextBox x:Name="orderIdTextBox" 
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Top" 
+                  Margin="0,29,0,0" 
+                  Width="399" 
+                  Height="25" 
+                  Text="{Binding SearchOrderId, UpdateSourceTrigger=PropertyChanged}" 
+                  Style="{StaticResource RoundedTextBox}"/>
+        </Border>
+        <Button Style="{StaticResource RoundImageButtonStyle}" Command="{Binding RefreshCommand}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,22,22,0" Height="42" Width="41" Background="{x:Null}" BorderBrush="{x:Null}"/>
+    </Grid>
+</Window>
